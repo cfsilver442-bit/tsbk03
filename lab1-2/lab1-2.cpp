@@ -131,7 +131,7 @@ void init(void)
     LoadTGATextureSimple("bumpmaps/uppochner.tga", &bumpTex);
 
 	// load the model
-    cube = LoadModelPlus("cubeexp.obj");
+    cube = LoadModel("cubeexp.obj");
     printf("%d vertices\n", cube->numVertices);
     printf("%d indices\n", cube->numIndices);
 

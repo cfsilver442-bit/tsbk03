@@ -46,6 +46,8 @@ FBOstruct *fbo1, *fbo2, *fbo3;
 GLuint phongshader = 0;
 GLuint plaintextureshader = 0;
 GLuint lowpasshader = 0;
+GLuint lowpasshadery = 0;
+
 GLuint thresholdshader = 0;
 GLuint mergeshader = 0;
 
@@ -87,6 +89,7 @@ void init(void) {
     lowpasshader = loadShaders("lowpass.vert", "lowpass.frag");
     thresholdshader = loadShaders("threshold.vert", "threshold.frag");
     mergeshader = loadShaders("merge.vert", "merge.frag");
+    lowpasshadery = loadShaders("lowpass.vert", "lowpassy.frag");
 
     printError("init shader");
 
@@ -147,9 +150,9 @@ void display(void) {
 
     runfilter(thresholdshader, fbo1, 0L, fbo2);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 200; i++) {
         runfilter(lowpasshader, fbo2, 0L, fbo3);
-        runfilter(lowpasshader, fbo3, 0L, fbo2);
+        runfilter(lowpasshadery, fbo3, 0L, fbo2);
         // runfilter(lowpasshader, fbo1, 0L, fbo2); // Blurra bara kaninen
         // runfilter(lowpasshader, fbo2, 0L, fbo1);
     }
@@ -163,6 +166,16 @@ void display(void) {
     glDisable(GL_DEPTH_TEST);
 
     runfilter(mergeshader, fbo1, fbo2, 0L);
+
+    // useFBO(0L, fbo1, 0L);
+
+    // glDisable(GL_CULL_FACE);
+    // glDisable(GL_DEPTH_TEST);
+
+    // glUseProgram(plaintextureshader);
+    // glUniform1i(glGetUniformLocation(plaintextureshader, "texUnit"), 0);
+
+    // DrawModel(squareModel, plaintextureshader, "in_Position", NULL, "in_TexCoord");
 
     glutSwapBuffers();
 }
