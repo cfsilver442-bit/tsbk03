@@ -184,6 +184,16 @@ void DeformCylinder() {
             //     g_vertsRes[row][corner] = p;
             // }
 
+            // ---=========	Part 2: Skinning in CPU ===========------
+            // Deform the cylindern from the skeleton in g_bones.
+            // i g_bones.
+            //
+            // Perform skinning.
+            //
+            // g_bones holds the bones.
+            // g_boneWeights are blending weights for the bones.
+            // g_vertsOrg are original vertex data.
+            // g_vertsRes are modified vertex data to send to OpenGL.
             vec3 original = g_vertsOrg[row][corner];
             vec3 rotated = original;
 
@@ -197,16 +207,6 @@ void DeformCylinder() {
             vec3 bone1 = ScalarMult(rotated, weight[row]);
 
             g_vertsRes[row][corner] = VectorAdd(bone0, bone1);
-            // ---=========	Part 2: Skinning in CPU ===========------
-            // Deform the cylindern from the skeleton in g_bones.
-            // i g_bones.
-            //
-            // Perform skinning.
-            //
-            // g_bones holds the bones.
-            // g_boneWeights are blending weights for the bones.
-            // g_vertsOrg are original vertex data.
-            // g_vertsRes are modified vertex data to send to OpenGL.
         }
     }
 }
@@ -253,7 +253,7 @@ void DrawCylinder() {
     // Move the vertex calculations from DeformCylinder into a vertex shader.
     // The current one is "shader.vert".
 
-    DeformCylinder();
+    // DeformCylinder();
 
     setBoneLocation();
     setBoneRotation();

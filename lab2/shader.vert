@@ -27,6 +27,7 @@ void main(void)
     rotated = rotated - boneLocation;
     rotated = (boneRotationMatrix * vec4(rotated, 1.0)).xyz;
     rotated = rotated + boneLocation;
+
     vec3 result = in_TexCoord.x * original + in_TexCoord.y * rotated;
     gl_Position = matrix * vec4(result, 1.0);
 
